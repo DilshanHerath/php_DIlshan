@@ -78,16 +78,71 @@
                                 </td>
                             </tr>
 
-                            <!--Model of view Saller-->
+                            <!--Model of view Seller-->
                             <div class="modal fade bg-dark-greay" id="viewSeller{{$seller -> id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="staticBackdropLabel">{{$seller->id}}</h5>
+                                            <h3 class="modal-title" id="staticBackdropLabel">{{$seller->full_name}}</h3>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            ...
+                                          <div class="row">
+                                              <div class="col-md-5">
+                                                  <p>ID:</p>
+                                              </div>
+                                              <div class="col-md-7">
+                                                  <p>{{$seller->id}}</p>
+                                              </div>
+                                          </div>
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <p>Full Name:</p>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <p>{{$seller->full_name}}</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <p>Email:</p>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <p>{{$seller->email}}</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <p>Telephone:</p>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <p>{{$seller->telephone}}</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <p>Joined Date:</p>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <p>{{$seller->joined_date}}</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <p>Current Routes:</p>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <p>{{$seller->current_routes}}</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <p>Comments:</p>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <p>{{$seller->comments}}</p>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -111,12 +166,12 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="{{route('update', $seller->id)}}" method="post">
+                                        <form action="{{url('/update/'.$seller->id)}}" method="post">
                                             @csrf
-                                            @method('put')
+
                                             <div class="form-group">
                                                 <label for="">ID</label>
-                                                <input type="text" name="id" value="{{ $seller->id}}" id="" class="form-control">
+                                                <input type="text" name="id" readonly value="{{ $seller->id}}" id="" class="form-control">
                                             </div>
                                             <div class="form-group">
                                                 <label for="">Full Name</label>
@@ -148,10 +203,10 @@
 
                                             <div
                                                 class="modal-footer justify-content-center align-items-center display-flex">
-                                                <div class="col-md-6">
-                                                    <button type="submit" class="btn btn-warning btn-block w-100">
-                                                        Update User
-                                                    </button>
+                                                <div class="modal-footer justify-content-center align-items-center display-flex">
+                                                    <div>
+                                                        <button type="submit" class="btn btn-primary btn-block w-100">Update</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </form>
@@ -160,7 +215,7 @@
                             </div>
                         </div>
 
-                        <!--Model of Delete user-->
+                        <!--Model of Delete seller-->
                         <div class="modal right fade mt-3" id="deleteSeller{{ $seller->id }}" data-bs-backdrop="static"
                              data-bs-keyboard="false" tabindex="-1"
                              aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -173,7 +228,7 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="{{route('destroy', $seller->id)}}" method="post">
+                                        <form action="{{url('/destroy/'.$seller->id)}}" method="post">
                                             @csrf
                                             @method('delete')
                                             <p>Are sure want this delete this {{$seller->name}} ?</p>
@@ -181,11 +236,11 @@
                                             <div
                                                 class="modal-footer justify-content-center align-items-center display-flex">
                                                 <div class="col-md-6">
-                                                    <button class="btn btn-default w-100" data-dismiss="modal">
-                                                        Cancel
-                                                    </button>
                                                     <button type="submit" class="btn btn-danger w-100">
                                                         Delete
+                                                    </button>
+                                                    <button class="btn btn-default w-100" data-dismiss="modal">
+                                                        Cancel
                                                     </button>
                                                 </div>
                                             </div>
@@ -217,36 +272,38 @@
                 <h5 class="modal-title" id="staticBackdropLabel">Add Saler</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+
+
             <div class="modal-body">
-                <form action="{{route('store')}}" method="post">
+                <form action="{{url('/store')}}" method="post">
                     @csrf
                     <div class="form-group">
                         <label for="">ID</label>
-                        <input type="text" name="id" id="" class="form-control">
+                        <input type="text" name="id" required id="" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="">Full Name</label>
-                        <input type="text" name="full_name" id="" class="form-control">
+                        <input type="text" name="full_name" required id="" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="">Email Address</label>
-                        <input type="email" name="email" id="" class="form-control">
+                        <input type="email" name="email" id="" required class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="">Telephones</label>
-                        <input type="text" name="telephone" id="" class="form-control">
+                        <input type="text" name="telephone" id="" required class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="">Joined Date</label>
-                        <input type="date" name="joined_date" id="" class="form-control">
+                        <input type="date" name="joined_date" id="" required class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="">Current Routes</label>
-                        <input type="text" name="current_routes" id="" class="form-control">
+                        <input type="text" name="current_routes" id="" required class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="">Comments</label>
-                        <textarea class="form-control" name="comments" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        <textarea class="form-control" name="comments" required id="exampleFormControlTextarea1" rows="3"></textarea>
                     </div>
 
                     <div class="modal-footer justify-content-center align-items-center display-flex">

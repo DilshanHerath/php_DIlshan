@@ -97,14 +97,20 @@ class SellerController extends Controller
     public function update(Request $request, $id)
     {
       $seller = Seller::find($id);
-
-      if (!$seller){
+//
+//      if (!$seller){
 //          return back()->with('Error', 'Seller Not Found');
-          return redirect()::back();
-
-      }
-      $seller->update($request->all());
-      return back()->with('Success', 'Seller Updated');
+//      }
+//      $seller->update($request->all());
+//      return back()->with('Success', 'Seller Updated');
+        $seller->full_name=$request->input('full_name');
+        $seller->email=$request->input('email');
+        $seller->telephone=$request->input('telephone');
+        $seller->joined_date=$request->input('joined_date');
+        $seller->current_routes=$request->input('current_routes');
+        $seller->comments=$request->input('comments');
+        $seller->save();
+        return redirect('/');
     }
 
     /**
@@ -117,10 +123,12 @@ class SellerController extends Controller
     {
         $seller = Seller::find($id);
 
-        if (!$seller){
-            return back()->with('Error', 'Seller Not Found');
-        }
         $seller->delete();
-        return back()->with('Success', 'Seller Deleted');
+        return redirect('/');
+//        if (!$seller){
+//            return back()->with('Error', 'Seller Not Found');
+//        }
+//        $seller->delete();
+//        return back()->with('Success', 'Seller Deleted');
     }
 }
